@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Investimento - Renda Fixa</title>
+    <link rel="stylesheet" href="RendaFixa.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">EducaFinanças</div>
+            <nav class="sidebar-menu">
+                <ul>
+                    <li><button class="menu-btn" onclick="window.location.href='TelaInicio.html'"><span class="icon">🏠</span> Início</button></li>
+                    <li><button class="menu-btn" onclick="window.location.href='Minicurso.html'"><span class="icon">📚</span> Cursos</button></li>
+                    <li><button class="menu-btn active"><span class="icon">🧮</span> Simulador</button></li>
+                    <li><button class="menu-btn" onclick="window.location.href='CarteiraVirtual.html'"><span class="icon">💰</span> Meus Investimentos</button></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="main-header">
+                <h2>Simulador de Investimento</h2>
+                <div class="simulador-tabs">
+                    <button class="tab-btn" onclick="window.location.href='Simulador.html'">Ações</button>
+                    <button class="tab-btn active">Renda fixa</button>
+                </div>
+            </header>
+            <form class="renda-fixa-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tipo de investimento <span class="dot" title="Ajuda"></span></label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="tipo" checked> CDB/LC/Títulos públicos/Debêntures</label><br>
+                            <label><input type="radio" name="tipo"> LCI/LCA</label><br>
+                            <label><input type="radio" name="tipo"> Tesouro</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>É PRÉ fixado ou PÓS fixado? <span class="dot" title="Ajuda"></span></label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="fixado" checked> PRÉ</label>
+                            <label><input type="radio" name="fixado"> PÓS</label>
+                            <label><input type="radio" name="fixado"> IPCA</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Investimento inicial <span class="dot" title="Ajuda"></span></label>
+                        <input type="text" placeholder="R$ 0,00">
+                    </div>
+                    <div class="form-group">
+                        <label>Investimento mensal <span class="dot" title="Ajuda"></span></label>
+                        <input type="text" placeholder="R$ 0,00">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Prazo <span class="dot" title="Ajuda"></span></label>
+                        <div class="input-group">
+                            <input type="number" min="0" value="0">
+                            <span class="input-sufix">Anual</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Rentabilidade <span class="dot" title="Ajuda"></span></label>
+                        <div class="input-group">
+                            <span class="input-prefix">%</span>
+                            <input type="text" placeholder="0,00">
+                            <span class="input-sufix">Anual</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row center">
+                    <button type="submit" class="simular-btn">Simular</button>
+                </div>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

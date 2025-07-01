@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Carteira Virtual</title>
+    <link rel="stylesheet" href="CarteiraVirtual.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">EducaFinanças</div>
+            <nav class="sidebar-menu">
+                <ul>
+                    <li><button class="menu-btn" onclick="window.location.href='TelaInicio.html'"><span class="icon">🏠</span> Início</button></li>
+                    <li><button class="menu-btn" onclick="window.location.href='Minicurso.html'"><span class="icon">📚</span> Cursos</button></li>
+                    <li><button class="menu-btn" onclick="window.location.href='Simulador.html'"><span class="icon">🧮</span> Simulador</button></li>
+                    <li><button class="menu-btn active"><span class="icon">💰</span> Meus Investimentos</button></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="main-header">
+                <h2>Minha Carteira Virtual</h2>
+            </header>
+            <div class="carteira-grid">
+                <div class="investimentos-card">
+                    <div class="card-title">Meus Investimentos</div>
+                    <table class="investimentos-table">
+                        <thead>
+                            <tr>
+                                <th>Ação</th>
+                                <th>Quantidade</th>
+                                <th>Preço Médio</th>
+                                <th>Valor Investido</th>
+                                <th>Valor Atual</th>
+                                <th>Resultado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PETR4</td>
+                                <td>100</td>
+                                <td>R$ 33,00</td>
+                                <td>R$ 3.300,00</td>
+                                <td>R$ 3.320,00</td>
+                                <td>+0,33%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="grafico-card">
+                    <div class="card-title">Minha Carteira Virtual</div>
+                    <div class="grafico-img">
+                        <img src="imgteste.webp" alt="Gráfico da carteira virtual">
+                    </div>
+                </div>
+            </div>
+            <div class="chat-card">
+                <div class="card-title">Chat com a IA</div>
+                <div class="chat-mensagens">
+                    <div class="mensagem mensagem-usuario">Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos.</div>
+                    <div class="mensagem mensagem-ia">Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos.</div>
+                    <div class="mensagem mensagem-usuario">Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos.</div>
+                    <div class="mensagem mensagem-ia">Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos.</div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" class="chat-input" placeholder="Mensagem....">
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

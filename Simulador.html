@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Investimento</title>
+    <link rel="stylesheet" href="simulador.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">EducaFinanças</div>
+            <nav class="sidebar-menu">
+                <ul>
+                    <li><button class="menu-btn" onclick="window.location.href='TelaInicio.html'"><span class="icon">🏠</span> Início</button></li>
+                    <li><button class="menu-btn" onclick="window.location.href='Minicurso.html'"><span class="icon">📚</span> Cursos</button></li>
+                    <li><button class="menu-btn active"><span class="icon">🧮</span> Simulador</button></li>
+                    <li><button class="menu-btn" onclick="window.location.href='CarteiraVirtual.html'"><span class="icon">💰</span> Meus Investimentos</button></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="main-header">
+                <h2>Simulador de Invetimento</h2>
+                <div class="simulador-tabs">
+                    <button class="tab-btn active">Ações</button>
+                    <button class="tab-btn" onclick="window.location.href='RendaFixa.html'">Renda fixa</button>
+                </div>
+            </header>
+            <div class="simulador-busca">
+                <input type="text" placeholder="Buscar ação...">
+                <button class="buscar-btn">Buscar</button>
+            </div>
+            <div class="simulador-grid">
+                <div class="simulador-info">
+                    <div class="info-title">NOME AÇÃO - Informações <span class="dot"></span></div>
+                    <div class="info-content">
+                        Preço Atual: R$ 31,37<br>
+                        Máximo (12m): R$ 40,76<br>
+                        Variação: -0,53 | 1,96B/7M/6M/Min (12m): R$ 21,06<br>
+                        Volume: 48.697.000<br>
+                        Média (12m): R$ 25,36
+                    </div>
+                </div>
+                <div class="simulador-grafico">
+                    <div class="grafico-title">Gráfico - Variação Anual <span class="dot"></span></div>
+                    <div class="grafico-img">
+                        <img src="imgteste.webp" alt="Gráfico de variação anual">
+                    </div>
+                </div>
+                <div class="simulador-analise">
+                    <div class="analise-title">Análise e Recomendação</div>
+                    <div class="analise-content">
+                        Margem de Segurança: R$ 4,39<br>
+                        Risco: 8,05<br>
+                        Recomendação: COMPRAR
+                    </div>
+                </div>
+            </div>
+            <div class="simulador-btn-final">
+                <button class="comprar-btn">COMPRAR</button>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
