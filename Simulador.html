@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador de Investimento</title>
     <link rel="stylesheet" href="simulador.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="dashboard-container">
@@ -28,32 +29,27 @@
                 </div>
             </header>
             <div class="simulador-busca">
-                <input type="text" placeholder="Buscar ação...">
-                <button class="buscar-btn">Buscar</button>
+                <input type="text" id="input-simbolo" placeholder="Buscar ação...">
+                <button class="buscar-btn" onclick="buscarAcao()">Buscar</button>
             </div>
-            <div class="simulador-grid">
+            <div id="info-acao-dinamica"></div>
+            <div class="simulador-grid" id="simulador-grid" style="display:none">
                 <div class="simulador-info">
-                    <div class="info-title">NOME AÇÃO - Informações <span class="dot"></span></div>
-                    <div class="info-content">
-                        Preço Atual: R$ 31,37<br>
-                        Máximo (12m): R$ 40,76<br>
-                        Variação: -0,53 | 1,96B/7M/6M/Min (12m): R$ 21,06<br>
-                        Volume: 48.697.000<br>
-                        Média (12m): R$ 25,36
+                    <div class="info-title"><span id="nome-empresa"></span> <span class="dot"></span></div>
+                    <div class="info-content info-grid" id="info-content">
+                        <!-- Conteúdo dinâmico -->
                     </div>
                 </div>
                 <div class="simulador-grafico">
                     <div class="grafico-title">Gráfico - Variação Anual <span class="dot"></span></div>
                     <div class="grafico-img">
-                        <img src="imgteste.webp" alt="Gráfico de variação anual">
+                        <canvas id="grafico-acao" width="800" height="260"></canvas>
                     </div>
                 </div>
                 <div class="simulador-analise">
                     <div class="analise-title">Análise e Recomendação</div>
-                    <div class="analise-content">
-                        Margem de Segurança: R$ 4,39<br>
-                        Risco: 8,05<br>
-                        Recomendação: COMPRAR
+                    <div class="analise-content" id="analise-content">
+                        <!-- Conteúdo dinâmico -->
                     </div>
                 </div>
             </div>
@@ -62,5 +58,76 @@
             </div>
         </main>
     </div>
+    <script>
+    let grafico = null;
+    function buscarAcao() {
+        let simbolo = document.getElementById('input-simbolo').value.trim().toUpperCase();
+        // Se não tiver ponto, assume ação brasileira e adiciona .SA
+        if (simbolo && !simbolo.includes('.')) {
+            simbolo += '.SA';
+        }
+        if (!simbolo) return;
+        fetch(`http://localhost:5000/acao?simbolo=${simbolo}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.erro) {
+                    document.getElementById('info-acao-dinamica').innerHTML = `<div style='color:red'>${data.erro}</div>`;
+                    document.getElementById('simulador-grid').style.display = 'none';
+                    return;
+                }
+                document.getElementById('simulador-grid').style.display = '';
+                document.getElementById('info-acao-dinamica').innerHTML = '';
+                document.getElementById('nome-empresa').innerHTML = `<span style='color:#2e8b57;font-weight:bold;'>${data.nome_empresa}</span> <span style='color:#1a355e;font-weight:normal;'>(${data.sigla})</span> - Informações`;
+                document.getElementById('info-content').innerHTML = `
+                    <div class="info-col">
+                        <div>Preço Atual: <b>R$ ${data.preco_atual.toFixed(2)}</b></div>
+                        <div>Máximo (12m): <b>R$ ${data.max_12m.toFixed(2)}</b></div>
+                        <div>Variação: <b>${data.variacao.toFixed(2)}</b></div>
+                    </div>
+                    <div class="info-col">
+                        <div>Volume: <b>${data.volume.toLocaleString('pt-BR')}</b></div>
+                        <div>Média (12m): <b>R$ ${data.media_12m.toFixed(2)}</b></div>
+                        <div>Mínimo (12m): <b>R$ ${data.min_12m.toFixed(2)}</b></div>
+                    </div>
+                `;
+                document.getElementById('analise-content').innerHTML = `
+                    Margem de Segurança: R$ ${data.margem_seguranca.toFixed(2)}<br>
+                    Risco: ${data.risco}<br>
+                    Recomendação: ${data.recomendacao}
+                `;
+                // Montar o gráfico
+                if (grafico) grafico.destroy();
+                const ctx = document.getElementById('grafico-acao').getContext('2d');
+                grafico = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.datas_grafico.map(dt => dt.split('-').reverse().join('/')),
+                        datasets: [{
+                            label: 'Preço de Fechamento',
+                            data: data.precos_grafico,
+                            borderColor: 'green',
+                            backgroundColor: 'rgba(0, 128, 0, 0.1)',
+                            fill: true,
+                            tension: 0.2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            x: { display: true, title: { display: false } },
+                            y: { display: true, title: { display: false } }
+                        }
+                    }
+                });
+            })
+            .catch(() => {
+                document.getElementById('info-acao-dinamica').innerHTML = `<div style='color:red'>Erro ao buscar ação.</div>`;
+                document.getElementById('simulador-grid').style.display = 'none';
+            });
+    }
+    </script>
 </body>
 </html>
