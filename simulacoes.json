@@ -1,0 +1,10 @@
+[
+  {
+    "produto": "cdb_cdi",
+    "valor_inicial": 50000,
+    "prazo": 5,
+    "aporte_mensal": 500,
+    "resultado": 135821.51923371066,
+    "timestamp": "2025-07-21T18:34:09.143535"
+  }
+]

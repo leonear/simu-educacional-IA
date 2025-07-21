@@ -72,3 +72,37 @@
     </div>
 </body>
 </html>
+
+<script>
+document.querySelector('.chat-input').addEventListener('keydown', async function(e) {
+    if (e.key === 'Enter') {
+        const input = e.target;
+        const mensagem = input.value.trim();
+        if (!mensagem) return;
+
+        // Exibe mensagem do usuário
+        const chatMensagens = document.querySelector('.chat-mensagens');
+        const msgUsuario = document.createElement('div');
+        msgUsuario.className = 'mensagem mensagem-usuario';
+        msgUsuario.textContent = mensagem;
+        chatMensagens.appendChild(msgUsuario);
+
+        input.value = '';
+
+        // Envia para o backend
+        const resposta = await fetch('http://localhost:5000/chat', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({mensagem})
+        }).then(r => r.json());
+
+        // Exibe resposta da IA
+        const msgIA = document.createElement('div');
+        msgIA.className = 'mensagem mensagem-ia';
+        msgIA.textContent = resposta.resposta;
+        chatMensagens.appendChild(msgIA);
+
+        chatMensagens.scrollTop = chatMensagens.scrollHeight;
+    }
+});
+</script>
